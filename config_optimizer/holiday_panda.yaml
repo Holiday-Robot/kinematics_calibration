@@ -1,11 +1,10 @@
 # Panda robot joints to optimize. We are  not optmizing the transforamtation from joint_7 to end effector. 
 joints:
-  - panda_joint1
-  - panda_joint2
-  - panda_joint3
-  - panda_joint4
-  - panda_joint5
-  - panda_joint6
-  - panda_joint7
-  - panda_hand_tcp_joint
-  - ball_joint
+  - joint1
+  - joint2
+  - joint3
+  - joint4
+  - joint5
+  - joint6
+  - joint7
+  - ft_sensor_joint
