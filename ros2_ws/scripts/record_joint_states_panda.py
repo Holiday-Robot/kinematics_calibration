@@ -24,8 +24,10 @@ if __name__ == "__main__":
     config_file = args.config_file
     save_folder_name = args.save_folder_name
 
-    absolute_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    data_folder = os.path.join(absolute_path, save_folder_name)
+    absolute_path = os.path.dirname(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    )
+    data_folder = os.path.join(absolute_path, "data", "holiday_panda", save_folder_name)
     if data_folder and not os.path.exists(data_folder):
         os.makedirs(data_folder)
 

@@ -136,6 +136,12 @@ In this plot we trained and evaluated on different positions of the tool or in a
 ## Plot the learning curves
 To diplay how good the model gets, we diplay the learning and the validation curves by running 
 
+## Holiday Version (3 sockets)
+```bash
+python3 run_optimizer_holiday.py --model holiday_panda --data holiday_panda/data_A holiday_panda/data_B holiday_panda/data_C --offset-distance 0.05 0.05 0.05 0.05 0.05 0.05
+``` 
+offset-distance: For each dataset, two inputs are required: the distance between hole1 and hole2, and the distance between hole2 and hole3.
+
 ```bash
 python3 generate_learning_curve.py --model panda_1
 ```
