@@ -32,6 +32,7 @@ if __name__ == "__main__":
     config_path = os.path.join(absolute_path, "config", config_file)
     config = yaml.load(open(config_path, "r"), Loader=yaml.FullLoader)
 
+    rclpy.init()
     node = JointStatesRecorderPanda(data_folder, config)
     try:
         while rclpy.ok():

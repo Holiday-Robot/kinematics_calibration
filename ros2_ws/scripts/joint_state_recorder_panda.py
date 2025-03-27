@@ -6,7 +6,6 @@ from std_msgs.msg import Float32
 from geometry_msgs.msg import PoseStamped
 from joint_state_recorder import JointStatesRecorder
 import panda_py
-import dynamic_reconfigure.client
 from rclpy.clock import Clock
 
 

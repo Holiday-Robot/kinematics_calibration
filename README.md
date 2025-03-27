@@ -25,7 +25,12 @@ We propose a novel optimization routine. After collecting set of joint configura
 This is a python package named calibrated_fk. 
 Install the package through pip, using 
 ```bash
+conda create -n kinematics_calibration python=3.10
+conda activate kinematics_calibration
+conda install -c conda-forge libstdcxx-ng=12
 pip3 install -e .
+pip install pynput
+pip install panda-python
 ```
 
 Or install the package through poetry, using
@@ -87,7 +92,7 @@ When using a Franka, we give the possibility of using the buttons on the end eff
 Run the record_joint_states_panda node, e.g., 
 ```bash
 cd ros2_ws/scripts
-python record_joint_states_panda --config-file panda.yaml --save_folder_name data_front
+python record_joint_states_panda.py --config-file panda.yaml --save_folder_name data_front
 ```
 
 - Press 'check' to add a data point
