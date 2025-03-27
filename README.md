@@ -33,7 +33,7 @@ Or install the package through poetry, using
 poetry install
 ```
 
-## Record the data
+## Record the data (ROS1)
 To record the data, we rely on the ros topic that has the joint angles of the encoders. Place this repository in a catkin workspace and build it. 
 
 ```bash
@@ -63,7 +63,7 @@ What to do when the code runs:
 - Press 'q' when you have finished recording. 
 
 
-### Record data with a Franka 
+### Record data with a Franka (ROS1)
 ![Alt Text](imgs/mukca_franka.gif)
 
 As controllers, we suggest to use the [Human Friendly Controllers](https://github.com/franzesegiovanni/franka_human_friendly_controllers.git). You can also lunch any controller of [franka_ros](https://github.com/frankaemika/franka_ros.git). It is important to check that the joint state can be echoed. 
@@ -81,6 +81,22 @@ rosrun calibration_tools record_joint_states_panda --joint-state-topic-name /joi
 
 You need to create a config file for the panda in 
 'ros_ws/src/calibration_tools/config/<robot-name>' where you are specifying: hostname, username, password,that are the IP for the panda, the username and password used to access the Desk interface. 
+
+### Record data with a Franka (ROS2)
+When using a Franka, we give the possibility of using the buttons on the end effector to add data or switch between holes. 
+Run the record_joint_states_panda node, e.g., 
+```bash
+cd ros2_ws/scripts
+python record_joint_states_panda --config-file panda.yaml --save_folder_name data_front
+```
+
+- Press 'check' to add a data point
+- Press 'down' to delete the last data point
+- Press 'o' to switch between holes
+- Press 'x' to save the data and quit.
+
+You need to create a config file for the panda in 
+'ros2_ws/config' where you are specifying: hostname, username, password,that are the IP for the panda, the username and password used to access the Desk interface. 
 
 ## Calibrate the urdf model
 We are ready to optimize our model. 
