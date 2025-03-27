@@ -95,7 +95,7 @@ class JointStatesRecorder(Node):
         self.log_joint_length(len(self._data["hole_0"]))
         self.log(f"Saved joint for 1: {len(self._data['hole_1'])}")
         self.log_joint_length(len(self._data["hole_1"]))
-        self.log(f"Saved joint for 1: {len(self._data['hole_2'])}")
+        self.log(f"Saved joint for 2: {len(self._data['hole_2'])}")
         self.log_joint_length(len(self._data["hole_2"]))
         self.log(f"Active hole is green:")
         self.print_circle_with_number(self.hole_name()[-1])
@@ -134,7 +134,7 @@ class JointStatesRecorder(Node):
         for hole_name, data in self._data.items():
             file_name = os.path.join(self._folder_name, f"{hole_name}.csv")
             np.savetxt(file_name, np.array(data), delimiter=",")
-            self.log(f"Saved {len(self._data['hole_0'])} points for {hole_name}")
+            self.log(f"Saved {len(self._data[hole_name])} points for {hole_name}")
 
     def joint_states_callback(self, msg: JointState):
         self._positions = np.array(msg.position)[0 : self._dof]

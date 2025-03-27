@@ -110,7 +110,7 @@ class JointStatesRecorder():
         for hole_name, data in self._data.items():
             file_name = os.path.join(self._folder_name, f"{hole_name}.csv")
             np.savetxt(file_name, np.array(data), delimiter=",")
-            self.log(f"Saved {len(self._data['hole_0'])} points for {hole_name}")
+            self.log(f"Saved {len(self._data[hole_name])} points for {hole_name}")
             
     def joint_states_callback(self, msg: JointState):
         self._positions = np.array(msg.position)[0:self._dof]

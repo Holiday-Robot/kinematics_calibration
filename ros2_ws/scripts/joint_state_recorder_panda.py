@@ -51,7 +51,9 @@ class JointStatesRecorderPanda(JointStatesRecorder):
         )
 
     def vibrate(self, duration=0.2):
-        self.vibration_pub.publish(Float32(data=duration))
+        msg = Float32()
+        msg.data = float(duration)
+        self.vibration_pub.publish(msg)
 
     def _on_press_panda(self, event: dict) -> None:
         time_since_last_press = time.time() - self._last_time_pressed
@@ -64,7 +66,7 @@ class JointStatesRecorderPanda(JointStatesRecorder):
             self._data[f"{self.hole_name()}_pose"].append(self._pose)
 
             self.log(
-                f"Addded data point for {self.hole_name()} with value {self._positions}"
+                f"Added data point for {self.hole_name()} with value {self._positions}"
             )
             if len(self._data[self.hole_name()]) >= 30:
                 self.vibrate(duration=0.5)
@@ -89,10 +91,40 @@ class JointStatesRecorderPanda(JointStatesRecorder):
             self.vibrate(duration=1)
         else:
             self.log("Unknown key pressed")
-        self.print_status()
+        self.print_info()
+        self.print_circle_with_number(self.hole_name()[-1])
 
     def print_info(self):
         self.log("Press 'check' to add a data point")
         self.log("Press 'down' to delete the last data point")
         self.log("Press 'o' to switch between holes")
         self.log("Press 'x' to save the data and quit.")
+
+
+    def print_circle_with_number(self, number):
+        self.log(f"Saved joint for hole 0:")
+        self.log_joint_length(len(self._data["hole_0"]))
+        self.log(f"Saved joint for 1: {len(self._data['hole_1'])}")
+        self.log_joint_length(len(self._data["hole_1"]))
+        self.log(f"Saved joint for 2: {len(self._data['hole_2'])}")
+        self.log_joint_length(len(self._data["hole_2"]))
+        self.log(f"Active hole is green:")
+
+        number = int(number)
+        if number == 0:
+            color1, color2, color3 = 32, 0, 0
+        elif number == 1:
+            color1, color2, color3 = 0, 32, 0
+        elif number == 2:
+            color1, color2, color3 = 0, 0, 32
+
+        square = f"""
+            \033[{color1}m████████████   \033[{color2}m████████████   \033[{color3}m████████████
+            \033[{color1}m█          █   \033[{color2}m█          █   \033[{color3}m█          █
+            \033[{color1}m█     {0}    █   \033[{color2}m█     {1}    █   \033[{color3}m█     {2}    █
+            \033[{color1}m█          █   \033[{color2}m█          █   \033[{color3}m█          █
+            \033[{color1}m████████████   \033[{color2}m████████████   \033[{color3}m████████████ 
+            \033[0m
+        """
+
+        print(square)
