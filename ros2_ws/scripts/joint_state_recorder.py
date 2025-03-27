@@ -13,7 +13,7 @@ class JointStatesRecorder(Node):
             JointState, "/hday/rt_franka/joint_state", self.joint_states_callback, 10
         )
 
-        self._data = {"hole_0": [], "hole_1": []}
+        self._data = {"hole_0": [], "hole_1": [], "hole_2": []}
         self._dof = dof
         self._positions = np.zeros(self._dof)
         self._active_hole = 0
@@ -28,8 +28,10 @@ class JointStatesRecorder(Node):
                 self._data = {
                     "hole_0": [],
                     "hole_1": [],
+                    "hole_2": [],
                     "hole_0_pose": [],
                     "hole_1_pose": [],
+                    "hole_2_pose": [],
                 }
 
         else:
@@ -38,8 +40,10 @@ class JointStatesRecorder(Node):
             self._data = {
                 "hole_0": [],
                 "hole_1": [],
+                "hole_2": [],
                 "hole_0_pose": [],
                 "hole_1_pose": [],
+                "hole_2_pose": [],
             }
 
         self.print_info()
@@ -80,7 +84,7 @@ class JointStatesRecorder(Node):
             print("Finished recording data")
             rclpy.shutdown()
         elif key.char == "s":
-            self._active_hole = (self._active_hole + 1) % 2
+            self._active_hole = (self._active_hole + 1) % 3
             self.log(f"Switched to hole {self._active_hole}")
         elif key.char == "i":
             self.print_info()
@@ -91,6 +95,8 @@ class JointStatesRecorder(Node):
         self.log_joint_length(len(self._data["hole_0"]))
         self.log(f"Saved joint for 1: {len(self._data['hole_1'])}")
         self.log_joint_length(len(self._data["hole_1"]))
+        self.log(f"Saved joint for 1: {len(self._data['hole_2'])}")
+        self.log_joint_length(len(self._data["hole_2"]))
         self.log(f"Active hole is green:")
         self.print_circle_with_number(self.hole_name()[-1])
 
@@ -107,17 +113,18 @@ class JointStatesRecorder(Node):
     def print_circle_with_number(self, number):
         number = int(number)
         if number == 0:
-            color1 = 32
-            color2 = 0
-        if number == 1:
-            color1 = 0
-            color2 = 32
+            color1, color2, color3 = 32, 0, 0
+        elif number == 1:
+            color1, color2, color3 = 0, 32, 0
+        elif number == 2:
+            color1, color2, color3 = 0, 0, 32
+
         square = f"""
-            \033[{color1}m████████████   \033[{color2}m████████████
-            \033[{color1}m█          █   \033[{color2}m█          █
-            \033[{color1}m█     {0}    █   \033[{color2}m█     {1}    █
-            \033[{color1}m█          █   \033[{color2}m█          █
-            \033[{color1}m████████████   \033[{color2}m████████████ 
+            \033[{color1}m████████████   \033[{color2}m████████████   \033[{color3}m████████████
+            \033[{color1}m█          █   \033[{color2}m█          █   \033[{color3}m█          █
+            \033[{color1}m█     {0}    █   \033[{color2}m█     {1}    █   \033[{color3}m█     {2}    █
+            \033[{color1}m█          █   \033[{color2}m█          █   \033[{color3}m█          █
+            \033[{color1}m████████████   \033[{color2}m████████████   \033[{color3}m████████████ 
             \033[0m
         """
 

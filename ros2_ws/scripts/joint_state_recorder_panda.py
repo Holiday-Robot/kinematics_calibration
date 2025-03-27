@@ -85,7 +85,7 @@ class JointStatesRecorderPanda(JointStatesRecorder):
             rclpy.shutdown()
             return
         elif "circle" in event and event["circle"]:
-            self._active_hole = (self._active_hole + 1) % 2
+            self._active_hole = (self._active_hole + 1) % 3
             self.log(f"Switched to hole {self._active_hole}")
             self.vibrate(duration=1)
         else:
