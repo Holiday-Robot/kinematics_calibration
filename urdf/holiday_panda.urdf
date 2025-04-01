@@ -197,46 +197,33 @@
   </link>
 
   <!-- ft_sensor_mount -->
-  <joint name="ft_sensor_mount_joint" type="fixed">
+  <joint name="ft_sensor_and_mount_joint" type="fixed">
     <parent link="link7" />
-    <child link="ft_sensor_mount_link" />
+    <child link="ft_sensor_and_mount_link" />
     <origin rpy="0 0 0.784602" xyz="0 0 0.107" /> 
   </joint>
 
-  <link name="ft_sensor_mount_link">
+
+  <link name="ft_sensor_and_mount_link">
     <visual>
       <origin xyz="0 0 0.015" rpy="0 0 0" />
       <geometry>
         <cylinder length="0.03" radius="0.04"/>
       </geometry>
       <material name="Grey" />
-    </visual>
-    <collision>
-      <origin xyz="0 0 0.015" rpy="0 0 0" />
-      <geometry>
-        <cylinder length="0.03" radius="0.04"/>
-      </geometry>
-      <material name="Grey" />
-    </collision>
-  </link>
-
-  <!-- ft_sensor -->
-  <joint name="ft_sensor_joint" type="fixed">
-    <origin xyz="0 0 0.03" rpy="0 0 0" />
-    <parent link="ft_sensor_mount_link" />
-    <child link="ft_sensor_link" />    
-  </joint>
-
-  <link name="ft_sensor_link">
-    <visual>
-      <origin xyz="0 0 0.01" rpy="0 0 0" />
+      <origin xyz="0 0 0.04" rpy="0 0 0" />
         <geometry>
             <mesh filename="package://holiday_robot_descriptions/assets/object/visual/adin_ft_sensor.obj" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Black" />
     </visual>
     <collision>
-      <origin xyz="0 0 0.01" rpy="0 0 0" />
+      <origin xyz="0 0 0.015" rpy="0 0 0" />
+      <geometry>
+        <cylinder length="0.03" radius="0.04"/>
+      </geometry>
+      <material name="Grey" />
+      <origin xyz="0 0 0.04" rpy="0 0 0" />
         <geometry>
             <mesh filename="package://holiday_robot_descriptions/assets/object/collision/adin_ft_sensor.obj" scale="0.001 0.001 0.001"/>
         </geometry>
@@ -246,9 +233,9 @@
 
   <!-- hand mount -->
   <joint name="hand_mount_joint" type="fixed">
-    <parent link="ft_sensor_link" />
+    <parent link="ft_sensor_and_mount_link" />
     <child link="hand_mount_link" />
-    <origin rpy="0 0 0" xyz="0 0 0.02" /> 
+    <origin rpy="0 0 0" xyz="0 0 0.05" /> 
   </joint>
 
   <link name="hand_mount_link">

@@ -7,4 +7,4 @@ joints:
   - joint5
   - joint6
   - joint7
-  - ft_sensor_joint
+  - hand_mount_joint
