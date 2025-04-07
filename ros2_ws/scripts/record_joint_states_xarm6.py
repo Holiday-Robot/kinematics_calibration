@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import yaml
 
-from joint_state_recorder_panda import JointStatesRecorderPanda
+from joint_state_recorder_xarm6 import JointStatesRecorderXArm6
 import os
 import argparse
 import rclpy
@@ -21,14 +21,14 @@ if __name__ == "__main__":
     absolute_path = os.path.dirname(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     )
-    data_folder = os.path.join(absolute_path, "data", "holiday_panda", save_folder_name)
+    data_folder = os.path.join(absolute_path, "data", "holiday_xarm6", save_folder_name)
     if data_folder and not os.path.exists(data_folder):
         os.makedirs(data_folder)
 
     rclpy.init()
     node = JointStatesRecorderXArm6(data_folder)
     try:
-        while rclpy.ok():
+        while rclpy.ok() and not node._exit_mode:
             rclpy.spin_once(node, timeout_sec=0.1)
     except:
         pass

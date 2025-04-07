@@ -5,14 +5,13 @@ import numpy as np
 from std_msgs.msg import Float32
 from geometry_msgs.msg import PoseStamped
 from joint_state_recorder import JointStatesRecorder
-import panda_py
 from rclpy.clock import Clock
 
 
 class JointStatesRecorderXArm6(JointStatesRecorder):
     def __init__(self, folder_name: str):
         super().__init__(folder_name, 6, "/hday/xarm6/joint_state")
-        self._pykeyboard.stop()
+        # self._pykeyboard.stop()
 
         self.pose_subsciber = self.create_subscription(
             PoseStamped, "/hday/xarm6/ef_pose", self._pose_callback, 10

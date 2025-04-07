@@ -4,6 +4,7 @@ from rclpy.node import Node
 import numpy as np
 import pynput
 from sensor_msgs.msg import JointState
+import threading
 
 
 class JointStatesRecorder(Node):
@@ -17,8 +18,17 @@ class JointStatesRecorder(Node):
         self._dof = dof
         self._positions = np.zeros(self._dof)
         self._active_hole = 0
-        self._pykeyboard = pynput.keyboard.Listener(on_press=self.on_press)
-        self._pykeyboard.start()
+        # self._pykeyboard = pynput.keyboard.Listener(on_press=self.on_press)
+        # self._pykeyboard.start()
+
+        self._pykeyboard_listener_thread = threading.Thread(
+            target=self.start_keyboard_listener
+        )
+        self._pykeyboard_listener_thread.daemon = True
+        self._pykeyboard_listener_thread.start()
+
+        self._exit_mode = False
+
         self._folder_name = folder_name
         if os.path.exists(folder_name):
             self.log(f"Folder {self._folder_name} already exists.")
@@ -49,6 +59,10 @@ class JointStatesRecorder(Node):
         self.print_info()
         self.print_status()
 
+    def start_keyboard_listener(self):
+        self._listener = pynput.keyboard.Listener(on_press=self.on_press)
+        self._listener.start()  # 리스너 시작
+
     def read_data(self):
         for file_name in os.listdir(self._folder_name):
             hole_name = file_name.split(".")[0]
@@ -69,26 +83,54 @@ class JointStatesRecorder(Node):
         return f"hole_{self._active_hole}"
 
     def on_press(self, key):
-        # Add the current position to the data if the space key is pressed
-        if key.char == "a":
-            self._data[self.hole_name()].append(self._positions)
-            self.log(
-                f"Addded data point for {self.hole_name()} with value {self._positions}"
-            )
-        elif key.char == "d":
-            self._data[self.hole_name()] = self._data[self.hole_name()][0:-1]
-            self.log(f"Deleted data point for {self.hole_name()}")
-        elif key.char == "q":
-            self.log("Saving data to file and exiting")
-            self.save_data()
-            print("Finished recording data")
-            rclpy.shutdown()
-        elif key.char == "s":
-            self._active_hole = (self._active_hole + 1) % 3
-            self.log(f"Switched to hole {self._active_hole}")
-        elif key.char == "i":
-            self.print_info()
-        self.print_status()
+
+        try:
+            # Check if the key has the 'char' attribute
+            if hasattr(key, "char") and key.char:
+                # Add the current position to the data if the space key is pressed
+                if key.char == "a":
+                    self._data[self.hole_name()].append(self._positions)
+                    self.log(
+                        f"Addded data point for {self.hole_name()} with value {self._positions}"
+                    )
+                elif key.char == "d":
+                    self._data[self.hole_name()] = self._data[self.hole_name()][0:-1]
+                    self.log(f"Deleted data point for {self.hole_name()}")
+                elif key.char == "q":
+                    self.log("Saving data to file and exiting")
+                    self.save_data()
+                    print("Finished recording data")
+                    rclpy.shutdown()
+                elif key.char == "s":
+                    self._active_hole = (self._active_hole + 1) % 3
+                    self.log(f"Switched to hole {self._active_hole}")
+                elif key.char == "i":
+                    self.print_info()
+                self.print_info()
+                self.print_status()
+            else:
+                # Handle special keys
+                if key == pynput.keyboard.Key.esc:
+                    self.log("Esc key pressed, shutting down.")
+                    self._listener.stop()
+                    self._exit_mode = True
+                    # rclpy.shutdown()
+                    # exit(0)
+        except AttributeError:
+            # Handle the case where 'key' does not have a 'char' attribute
+            self.log(f"Special key pressed: {key}")
+
+    def shutdown_and_exit(self):
+        # ROS가 초기화되지 않았다면 초기화
+        if not rclpy.ok():
+            rclpy.init()
+
+        # 리스너를 중지하고, rclpy 종료 및 프로그램 종료
+        if self._listener:
+            self._listener.stop()  # 리스너 종료
+        rclpy.shutdown()  # ROS 종료
+        print("ROS shutdown completed.")
+        exit(0)  # 프로세스 종료
 
     def print_status(self):
         self.log(f"Saved joint for hole 0:")
