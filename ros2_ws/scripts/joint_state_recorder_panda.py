@@ -11,7 +11,7 @@ from rclpy.clock import Clock
 
 class JointStatesRecorderPanda(JointStatesRecorder):
     def __init__(self, folder_name: str, config: dict):
-        super().__init__(folder_name, 7)
+        super().__init__(folder_name, 7, "/hday/rt_franka/joint_state")
         self._pykeyboard.stop()
         hostname = config["hostname"]
         username = config["username"]
@@ -99,7 +99,6 @@ class JointStatesRecorderPanda(JointStatesRecorder):
         self.log("Press 'down' to delete the last data point")
         self.log("Press 'o' to switch between holes")
         self.log("Press 'x' to save the data and quit.")
-
 
     def print_circle_with_number(self, number):
         self.log(f"Saved joint for hole 0:")

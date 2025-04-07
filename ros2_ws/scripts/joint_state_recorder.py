@@ -7,10 +7,10 @@ from sensor_msgs.msg import JointState
 
 
 class JointStatesRecorder(Node):
-    def __init__(self, folder_name: str, dof: int):
+    def __init__(self, folder_name: str, dof: int, topic_name: str):
         super().__init__("joint_states_recorder")
         self._joint_states_sub = self.create_subscription(
-            JointState, "/hday/rt_franka/joint_state", self.joint_states_callback, 10
+            JointState, topic_name, self.joint_states_callback, 10
         )
 
         self._data = {"hole_0": [], "hole_1": [], "hole_2": []}

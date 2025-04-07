@@ -87,12 +87,16 @@ rosrun calibration_tools record_joint_states_panda --joint-state-topic-name /joi
 You need to create a config file for the panda in 
 'ros_ws/src/calibration_tools/config/<robot-name>' where you are specifying: hostname, username, password,that are the IP for the panda, the username and password used to access the Desk interface. 
 
-### Record data with a Franka (ROS2)
+### Record data with a Franka and Xarm6 (ROS2)
 When using a Franka, we give the possibility of using the buttons on the end effector to add data or switch between holes. 
 Run the record_joint_states_panda node, e.g., 
 ```bash
 cd ros2_ws/scripts
 python record_joint_states_panda.py --config-file panda.yaml --save_folder_name data_front
+```
+```bash
+cd ros2_ws/scripts
+python record_joint_states_xarm6.py --save_folder_name data_front
 ```
 
 - Press 'check' to add a data point
