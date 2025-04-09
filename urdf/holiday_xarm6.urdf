@@ -1,0 +1,223 @@
+<?xml version="1.0" ?>
+<robot name="xarm6">
+    <material name="Silver">
+        <color rgba="1.0 1.0 1.0 1.0" />
+    </material>
+    <material name="Black">
+        <color rgba="0.0 0.0 0.0 1.0" />
+    </material>
+    <material name="Chrome">
+        <color rgba="0.0 0.0 0.0 1.0" />
+    </material>
+    <material name="DarkGrey">
+        <color rgba="0.33 0.33 0.33 1.0" />
+    </material>
+    <material name="Grey">
+        <color rgba="0.55 0.55 0.55 0.8" />
+    </material>
+    <material name="OpaqueGreen">
+        <color rgba="0.0 1.0 0.0 0.2" />
+    </material>
+    <material name="OpaqueRed">
+        <color rgba="1.0 0.0 0.0 0.2" />
+    </material>
+
+    <link name="link0">
+        <visual>
+            <geometry>
+                <mesh filename="../meshes/xarm6/visual/link0.obj" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="../meshes/xarm6/collision/link0.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint1" type="revolute">
+        <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-2.8973" soft_upper_limit="2.8973" />
+        <origin rpy="0 0 0" xyz="0 0 0.267" />
+        <parent link="link0" />
+        <child link="link1" />
+        <axis xyz="0 0 1" />
+        <limit effort="87.0" lower="-6.28" upper="6.28" velocity="2.62" />
+    </joint>
+    <link name="link1">
+        <visual>
+            <geometry>
+                <mesh filename="../meshes/xarm6/visual/link1.obj" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="../meshes/xarm6/collision/link1.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint2" type="revolute">
+        <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-1.7628" soft_upper_limit="1.7628" />
+        <origin rpy="-1.57079632679 0 0" xyz="0 0 0" />
+        <parent link="link1" />
+        <child link="link2" />
+        <axis xyz="0 0 1" />
+        <limit effort="87.0" lower="-2.059" upper="2.0944" velocity="2.62" />
+    </joint>
+    <link name="link2">
+        <visual>
+            <geometry>
+                <mesh filename="../meshes/xarm6/visual/link2.obj" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="../meshes/xarm6/collision/link2.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint3" type="revolute">
+        <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-2.8973" soft_upper_limit="2.8973" />
+        <origin rpy="0 0 0" xyz="0.0535 -0.2845 0" />
+        <parent link="link2" />
+        <child link="link3" />
+        <axis xyz="0 0 1" />
+        <limit effort="87.0" lower="-3.927" upper="0.19198" velocity="2.62" />
+    </joint>
+    <link name="link3">
+        <visual>
+            <geometry>
+                <mesh filename="../meshes/xarm6/visual/link3.obj" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="../meshes/xarm6/collision/link3.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint4" type="revolute">
+        <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-3.0718" soft_upper_limit="0.0175" />
+        <origin rpy="-1.57079632679 0 0" xyz="0.0775 0.3425 0" />
+        <parent link="link3" />
+        <child link="link4" />
+        <axis xyz="0 0 1" />
+        <limit effort="87.0" lower="-6.28" upper="6.28" velocity="2.62" />
+    </joint>
+    <link name="link4">
+        <visual>
+            <geometry>
+                <mesh filename="../meshes/xarm6/visual/link4.obj" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="../meshes/xarm6/collision/link4.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint5" type="revolute">
+        <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-2.8973" soft_upper_limit="2.8973" />
+        <origin rpy="1.57079632679 0 0" xyz="0 0 0" />
+        <parent link="link4" />
+        <child link="link5" />
+        <axis xyz="0 0 1" />
+        <limit effort="12.0" lower="-1.69297" upper="3.14" velocity="5.26" />
+    </joint>
+    <link name="link5">
+        <visual>
+            <geometry>
+                <mesh filename="../meshes/xarm6/visual/link5.obj" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="../meshes/xarm6/collision/link5.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint name="joint6" type="revolute">
+        <safety_controller k_position="100.0" k_velocity="40.0" soft_lower_limit="-0.0175" soft_upper_limit="3.7525" />
+        <origin rpy="-1.5708 0 0" xyz="0.076 0.097 0" />
+        <parent link="link5" />
+        <child link="link6" />
+        <axis xyz="0 0 1" />
+        <limit effort="12.0" lower="-6.28" upper="6.28" velocity="4.18" />
+    </joint>
+    <link name="link6">
+        <visual>
+            <geometry>
+                <mesh filename="../meshes/xarm6/visual/link6.obj" />
+            </geometry>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="../meshes/xarm6/collision/link6.obj" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </collision>
+    </link>
+
+
+    <joint name="ball_joint" type="fixed">
+        <origin rpy="0.0 0.0 0.0" xyz="0 0 0.04866" />
+        <parent link="link6"/>
+        <child link="ball_link"/>
+    </joint>
+    <link name="ball_link">
+        <visual>
+        <material name="red">
+            <color rgba="1 0 0 1"/>
+        </material>
+
+        <geometry>
+            <sphere radius="0.005"/>
+        </geometry>
+        </visual>
+    </link>
+
+
+    <!-- <joint name="camera_joint" type="fixed">
+        <parent link="link0"/>
+        <child link="camera_rgb"/>
+        <origin rpy="-2.300260 -0.001213 2.143358" xyz="0.781847 0.324491 0.299842"/>
+    </joint>
+    <link name="camera_rgb"/>
+
+    <joint name="rgb_to_center" type="fixed">
+      <parent link="camera_rgb" />
+      <child link="camera_center" />
+      <origin xyz="-0.0115 0 0" rpy="0 0 0" />
+    </joint>
+    <link name="camera_center" />
+
+    <joint name="camera_center_to_mesh" type ="fixed">
+      <parent link="camera_center" />
+      <child link="camer_mesh" />
+      <origin xyz="0 0 0" rpy="0 0 3.141592" />
+    </joint>
+    <link
+        name="camer_mesh">
+        <visual>
+        <origin
+            xyz="0 0 0"
+            rpy="0 0 0" />
+        <geometry>
+            <mesh
+            filename="../meshes/object/collision/d455.obj" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material
+            name="">
+            <color
+            rgba="1 1 1 1" />
+        </material>
+        </visual>
+        <collision>
+        <origin
+            xyz="0 0 0"
+            rpy="0 0 0" />
+        <geometry>
+            <mesh
+            filename="../meshes/object/collision/d455.obj"  scale="0.001 0.001 0.001"/>
+        </geometry>
+        </collision>
+    </link> -->
+
+</robot>
