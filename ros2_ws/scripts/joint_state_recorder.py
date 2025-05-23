@@ -8,10 +8,10 @@ import threading
 
 
 class JointStatesRecorder(Node):
-    def __init__(self, folder_name: str, dof: int, topic_name: str):
+    def __init__(self, folder_name: str, dof: int, topic_name: str, qos=10):
         super().__init__("joint_states_recorder")
         self._joint_states_sub = self.create_subscription(
-            JointState, topic_name, self.joint_states_callback, 10
+            JointState, topic_name, self.joint_states_callback, qos
         )
 
         self._data = {"hole_0": [], "hole_1": [], "hole_2": []}
