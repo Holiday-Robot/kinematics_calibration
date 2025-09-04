@@ -22,6 +22,6 @@ class JointStatesRecorderFridayRight(JointStatesRecorder):
         )
 
         super().__init__(folder_name, 7, "/hday/friday/right_arm/joint_state", qos=10)
-        self._pykeyboard.stop()
+        # self._pykeyboard.stop()
 
         self._last_time_pressed = time.time()

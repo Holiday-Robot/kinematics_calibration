@@ -27,7 +27,7 @@ class JointStatesRecorderTheBust2(JointStatesRecorder):
         )
 
         super().__init__(folder_name, 7, "/arm/joint_state", qos=self.qos_profile)
-        self._pykeyboard.stop()
+        # self._pykeyboard.stop()
 
         self.pose_subsciber = self.create_subscription(
             PoseStamped, "/hday/motion_planner/ef_pose", self._pose_callback, 10
