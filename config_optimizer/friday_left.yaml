@@ -1,0 +1,9 @@
+# Panda robot joints to optimize. We are  not optmizing the transforamtation from joint_7 to end effector. 
+joints:
+  - left_arm_1
+  - left_arm_2
+  - left_arm_3
+  - left_arm_4
+  - left_arm_5
+  - left_arm_6
+  - left_arm_7
